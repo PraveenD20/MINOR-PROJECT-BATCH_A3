@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMART RETAIL:</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="store">
+        <header>
+            <div class="profile" id="profileButton">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0qFuR8lxo7gnQZK7NqyGpCxfbBUbRV8eOfQ&s" alt="Store Owner" class="profile-img">
+                <div class="profile-info">
+                    <span class="profile-name">Store Owner</span>
+                    <span class="profile-role">Administrator</span>
+                </div>
+            </div>
+           <marquee>  <h1>SMART RETAIL:</h1> </marquee>
+            <div class="search">
+                <form>
+                    <input type="text" placeholder="Search...">
+                    <button type="submit">Go ->></button>
+                </form>
+                <button id="voiceAssistant" class="voice-btn">🎙️</button>
+            </div>
+            <div class="filters">
+                <button class="filter-btn active" data-category="all">All Items</button>
+                <button class="filter-btn" data-category="Food">Food</button>
+                <button class="filter-btn" data-category="Drinks">Drinks</button>
+                <button class="filter-btn" data-category="Snacks">Snacks</button>
+                <button class="filter-btn" data-category="Soap">Soap</button>
+                <button class="filter-btn" data-category="Shampoo">Shampoo</button>
+                <button class="filter-btn" data-category="Chocolate">Chocolate</button>
+                <button class="filter-btn" data-category="Kitchen Items">Kitchen Items</button>
+            </div>
+        </header>
+
+        <main>
+            <div class="products">
+                <div class="action-buttons">
+                    <button id="addItem" class="add-btn">+ Add New Item</button>
+                    <button id="generateBill" class="bill-btn">Generate Bill</button>
+                </div>
+                <div id="productList" class="product-list"></div>
+            </div>
+
+            <div class="cart">
+                <h2>Shopping Cart</h2>
+                <div id="cartItems"></div>
+                <div class="cart-total">
+                    <h3>Total: ₹<span id="total">0</span></h3>
+                    <div class="payment">
+                        <label>Amount Paid: ₹
+                            <input type="number" id="paid" min="0" step="0.01">
+                        </label>
+                        <p>Change: ₹<span id="change">0</span></p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Profile Modal -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="profile-details">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRBQO-rwz9JUTKyAS-0C_5Sjbc3G5b5tMSlA&s" alt="Store Owner" class="profile-detail-img">
+                <h2>Store Owner Details</h2>
+                <div class="profile-info-details">
+                    <div class="info-group">
+                        <label>Name:</label>
+                        <span>BATCH A3</span>
+                    </div>
+                    <div class="info-group">
+                        <label>Role:</label>
+                        <span>Store Administrator</span>
+                    </div>
+                    <div class="info-group">
+                        <label>Store Name:</label>
+                        <span>B.tech Mart</span>
+                    </div>
+                    <div class="info-group">
+                        <label>Contact:</label>
+                        <span>+91 7075134359</span>
+                    </div>
+                    <div class="info-group">
+                        <label>Email:</label>
+                        <span>we4_batchA3@smartretail.com</span>
+                    </div>
+                    <div class="info-group">
+                        <label>Address:</label>
+                        <span>Hyderabad, Hyderabad District, City</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Item Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add New Item</h2>
+            <form id="itemForm">
+                <div class="form-group">
+                    <label>Name:</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label>Price (₹):</label>
+                    <input type="number" id="price" min="0" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label>Category:</label>
+                    <select id="category" required>
+                        <option value="Food">Food</option>
+                        <option value="Drinks">Drinks</option>
+                        <option value="Snacks">Snacks</option>
+                        <option value="Soap">Soap</option>
+                        <option value="Shampoo">Shampoo</option>
+                        <option value="Chocolate">Chocolate</option>
+                        <option value="Chocolate">Kitchen Items</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Quantity:</label>
+                    <input type="number" id="quantity" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label>Low Stock Alert Quantity:</label>
+                    <input type="number" id="lowStockAlert" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label>Product Image URL:</label>
+                    <input type="url" id="image" placeholder="Enter image URL" required>
+                </div>
+                <button type="submit" class="submit-btn">Add Item</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bill Modal -->
+    <div id="billModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Bill Details</h2>
+            <div id="billContent" class="bill-content">
+                <div id="billItems"></div>
+                <div class="bill-summary">
+                    <p>Total Amount: ₹<span id="billTotal">0</span></p>
+                    <p>Amount Paid: ₹<span id="billPaid">0</span></p>
+                    <p>Change: ₹<span id="billChange">0</span></p>
+                </div>
+            </div>
+            <button id="printBill" class="print-btn">Print Bill</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
